@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 import AVKit
-import FZExtensions
+import FZSwiftUtils
 
 /** Array of @Persisted objects that can be used for creating CustomPersistable's.
  
