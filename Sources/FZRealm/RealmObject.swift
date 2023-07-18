@@ -20,6 +20,7 @@ public protocol RealmObject: Object {
      */
     static var realm: Realm { get }
 }
+
 extension Object: RealmObject { }
 
 public extension RealmObject {
