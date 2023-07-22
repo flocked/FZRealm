@@ -1,6 +1,6 @@
 //
-//  per.swift
-//  PornBase
+//  Persistable+.swift
+//  
 //
 //  Created by Florian Zand on 13.05.23.
 //

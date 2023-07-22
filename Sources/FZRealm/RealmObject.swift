@@ -1,6 +1,6 @@
 //
-//  Object+.swift
-//  PornBase
+//  RealmObject.swift
+//  
 //
 //  Created by Florian Zand on 14.05.23.
 //

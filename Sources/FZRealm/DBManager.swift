@@ -1,13 +1,13 @@
 //
 //  DBManager.swift
-//  PornBase
+//  
 //
 //  Created by Florian Zand on 13.05.23.
 //
 
 import AppKit
 import RealmSwift
-
+import FZSwiftUtils
 
 public extension Realm {
     static var RealmObjectRealm: Realm? {
@@ -51,7 +51,11 @@ public class DBManager {
      - Returns The database manager object
     */
     public convenience init() throws {
-        try self.init(url: .appSupportDatabaseFile)
+        try self.init(url: Self.appSupportDatabaseFile!)
+    }
+    
+    public static var appSupportDatabaseFile: URL? {
+        FileManager.default.applicationSupportDirectory()?.appendingPathComponent("Database").appendingPathExtension("sqlite")
     }
     
     /**
