@@ -134,6 +134,16 @@ extension PersitableArray {
 
 // MARK: DataSize
 extension DataSize: CustomPersistable {
+    public typealias PersistedType = Int
+
+    public init(persistedValue: Int) {
+        self = .init(persistedValue)
+    }
+    
+    public var persistableValue: Int {
+        return self.bytes
+    }
+    /*
     public typealias PersistedType = PersitableArray<Double>
 
     public init(persistedValue: PersitableArray<Double>) {
@@ -143,8 +153,10 @@ extension DataSize: CustomPersistable {
     public var persistableValue: PersitableArray<Double> {
         return PersitableArray(self)
     }
+     */
 }
 
+/*
 extension PersitableArray {
     public convenience init(_ size: DataSize) where Element == Double {
         self.init()
@@ -155,6 +167,7 @@ extension PersitableArray {
         DataSize(Int(self[0]), countStyle: .init(rawValue: Int(self[1]))!)
     }
 }
+ */
 
 extension CustomPersistable where Self == NSUIColor {
     public init(persistedValue: PersitableArray<Double>) {
