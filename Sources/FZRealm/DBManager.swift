@@ -39,7 +39,7 @@ public class DBManager {
     /**
      A Boolean value that indicates whether a new database should be created each init (e.g. suitable for debugging).
      */
-    public let createNewDatabaseAtInit: Bool = true
+    public var createNewDatabaseAtInit: Bool = true
     
     /**
     Creates an database manager object that uses a realm file at ~/Library/Application Support/{*App Bundle Name*}/Database.sqlite
@@ -55,7 +55,7 @@ public class DBManager {
     }
     
     public static var appSupportDatabaseFile: URL? {
-        FileManager.default.applicationSupportDirectory()?.appendingPathComponent("Database").appendingPathExtension("sqlite")
+        FileManager.default.applicationSupportDirectory(create: true)?.appendingPathComponent("Database").appendingPathExtension("sqlite")
     }
     
     /**
