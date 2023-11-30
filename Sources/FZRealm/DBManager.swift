@@ -40,7 +40,7 @@ public class DBManager {
     /**
      A Boolean value that indicates whether a new database should be created each init (e.g. suitable for debugging).
      */
-    public var createNewDatabaseAtInit: Bool = false
+    public static var createNewDatabaseAtInit: Bool = false
     
     /**
     Creates an database manager object that uses a realm file at ~/Library/Application Support/{*App Bundle Name*}/Database.sqlite
@@ -68,7 +68,7 @@ public class DBManager {
      - Returns The database manager object
     */
     public init(url: URL) throws {
-        if createNewDatabaseAtInit, FileManager.default.fileExists(atPath: url.path) {
+        if Self.createNewDatabaseAtInit, FileManager.default.fileExists(atPath: url.path) {
             try? FileManager.default.removeItem(at: url)
         }
         
