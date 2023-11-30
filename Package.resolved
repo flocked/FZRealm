@@ -6,7 +6,7 @@
         "repositoryURL": "https://github.com/flocked/FZSwiftUtils.git",
         "state": {
           "branch": "main",
-          "revision": "1b6dac779a75e237883e3768d04b013eb30888b3",
+          "revision": "840b4b456d8c92ac1dfe7afae2323ac7601f1e85",
           "version": null
         }
       },
@@ -15,17 +15,8 @@
         "repositoryURL": "https://github.com/flocked/FZUIKit.git",
         "state": {
           "branch": "main",
-          "revision": "f2dcdd5b4847c4ab0a1f9d3ba6c0e498c354ad71",
+          "revision": "014252bde7b03de38ae2ee4499f4b7167d66f835",
           "version": null
-        }
-      },
-      {
-        "package": "Realm",
-        "repositoryURL": "https://github.com/realm/realm-cocoa",
-        "state": {
-          "branch": null,
-          "revision": "08ee98e7f52a5fb11b10b7430e6f84adbb7433a4",
-          "version": "10.39.1"
         }
       },
       {
@@ -33,8 +24,17 @@
         "repositoryURL": "https://github.com/realm/realm-core",
         "state": {
           "branch": null,
-          "revision": "72226e2fd84f3a3a8ab3cffc2890c7951f1351d5",
-          "version": "13.10.1"
+          "revision": "c569bec4d04da84030d94f376437bc4efda3686b",
+          "version": "13.23.1"
+        }
+      },
+      {
+        "package": "Realm",
+        "repositoryURL": "https://github.com/realm/realm-swift.git",
+        "state": {
+          "branch": "master",
+          "revision": "95cb711d60801e82542b866d16d75608c40d7b2e",
+          "version": null
         }
       }
     ]

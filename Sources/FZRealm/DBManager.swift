@@ -55,7 +55,7 @@ public class DBManager {
     }
     
     public static var appSupportDatabaseFile: URL? {
-        FileManager.default.applicationSupportDirectory(create: true)?.appendingPathComponent("Database").appendingPathExtension("sqlite")
+        FileManager.default.applicationSupportDirectory(createIfNeeded: true)?.appendingPathComponent("Database").appendingPathExtension("sqlite")
     }
     
     /**

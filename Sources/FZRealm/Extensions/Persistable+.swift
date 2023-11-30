@@ -156,6 +156,20 @@ extension PersitableArray {
     }
 }
 
+extension CustomPersistable where Self == NSUIColor {
+    public init(persistedValue: PersitableArray<Double>) {
+        self.init(red: persistedValue[0], green: persistedValue[1], blue: persistedValue[2], alpha: persistedValue[3])
+    }
+}
+
+extension NSUIColor: CustomPersistable {
+    public typealias PersistedType = PersitableArray<Double>
+
+    
+    public var persistableValue: PersitableArray<Double> {
+        return PersitableArray(self)
+    }
+}
 
 // MARK: NSColor/UIColor
 extension PersitableArray {
@@ -164,9 +178,34 @@ extension PersitableArray {
         let components = color.rgbaComponents()
         self.array = [Double(components.red), Double(components.green), Double(components.blue), Double(components.alpha)]
      }
-    
-    func color() -> NSUIColor where Element == Double {
-        NSUIColor(srgbRed: self[0], green: self[1], blue: self[2], alpha: self[3])
+}
+
+/*
+extension CustomPersistable where Self == CGColor {
+    public init(persistedValue: PersitableArray<Double>) {
+        self.init(red: persistedValue[0], green: persistedValue[1], blue: persistedValue[2], alpha: persistedValue[3])
     }
 }
 
+
+extension CGColor: CustomPersistable {
+    public typealias PersistedType = PersitableArray<Double>
+
+    
+    public var persistableValue: PersitableArray<Double> {
+        return PersitableArray(self)
+    }
+}
+
+// MARK: NSColor/UIColor
+extension PersitableArray {
+    public convenience init(_ color: CGColor) where Element == Double {
+        self.init()
+        if let components = color.rgbaComponents() {
+            self.array = [Double(components.red), Double(components.green), Double(components.blue), Double(components.alpha)]
+        } else {
+            self.array = [0, 0, 0, 0]
+        }
+     }
+}
+*/

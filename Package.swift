@@ -12,7 +12,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/flocked/FZSwiftUtils.git", branch: "main"),
         .package(url: "https://github.com/flocked/FZUIKit.git", branch: "main"),
-        .package(name: "Realm", url: "https://github.com/realm/realm-cocoa", .upToNextMajor(from: "10.0.0"))
+        .package(url: "https://github.com/realm/realm-swift.git", branch: "master")
     ],
     targets: [
         .target(
@@ -20,8 +20,8 @@ let package = Package(
             dependencies: [
                 .product(name: "FZSwiftUtils", package: "FZSwiftUtils"),
                 .product(name: "FZUIKit", package: "FZUIKit"),
-                .product(name: "Realm", package: "Realm"),
-                .product(name: "RealmSwift", package: "Realm"),
+                .product(name: "Realm", package: "realm-swift"),
+                .product(name: "RealmSwift", package: "realm-swift"),
             ]
         ),
     ]
