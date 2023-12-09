@@ -62,7 +62,7 @@ public class DBManager {
     /**
     Creates an database manager object that uses a realm file at the specifed url.
      
-     - Parameters url: The url to the .sqlite realm file.
+     - Parameter url: The url to the .sqlite realm file.
      - Throws Throws if no realm file at the specifed url exists or the realm database couldn't be created.
      
      - Returns The database manager object

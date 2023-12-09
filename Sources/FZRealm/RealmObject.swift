@@ -40,7 +40,7 @@ public extension RealmObject {
     
     /**
      Returns a Results containing all objects matching the given query in the collection.
-     - Parameters isIncluded: The query closure to use to filter the objects.
+     - Parameter isIncluded: The query closure to use to filter the objects.
      - Throws Throws if the objects couldn't be fetched.
      - Returns A Results containing the objects.
      */
@@ -50,7 +50,7 @@ public extension RealmObject {
     
     /**
      Edits the object and saves the changes to the database.
-     - Parameters block: The block containing the edits to the object.
+     - Parameter block: The block containing the edits to the object.
      - Throws Throws if the object couldn't be edit.
      */
     func edit<Result>(_ block: ((Self) throws -> Result)) throws {
@@ -61,8 +61,8 @@ public extension RealmObject {
     
     /**
      Edits the object and saves the changes asynchronously to the database.
-     - Parameters block: The block containing the edits to the object.
-     - Parameters onComplete: The block that gets called when the saves have been saved.
+     - Parameter block: The block containing the edits to the object.
+     - Parameter onComplete: The block that gets called when the saves have been saved.
      - Throws Throws if the object couldn't be edit.
      */
     func editAsync(_ block: @escaping ((Self) -> ()), onComplete: ((Error?)->())? = nil) throws {
@@ -108,7 +108,7 @@ public extension RealmObject {
     /**
      Saves changes to the object to the database.
      - Note The object needs to have a primary key.
-     - Parameters onComplete: The block that gets called when the changes have been saved.
+     - Parameter onComplete: The block that gets called when the changes have been saved.
      - Throws Throws if the object has no primary key or the changes to object couldn't be saved.
      */
     func updateAsync(onComplete: ((Error?)->())? = nil) throws {

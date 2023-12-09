@@ -12,7 +12,7 @@ extension List: ExpressibleByArrayLiteral {
     /**
      Creates a List with the objects that are contained in a given array.
      
-     - Parameters values: An array that holds objects of Element.
+     - Parameter values: An array that holds objects of Element.
      */
     public convenience init<S: Sequence<Element>>(_ values: S) {
         self.init()
