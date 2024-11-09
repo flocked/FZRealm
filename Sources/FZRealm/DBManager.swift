@@ -5,15 +5,9 @@
 //  Created by Florian Zand on 13.05.23.
 //
 
-import AppKit
 import RealmSwift
 import FZSwiftUtils
-
-public extension Realm {
-    static var RealmObjectRealm: Realm? {
-        return nil
-    }
-}
+import Foundation
 
 /**
  A realm database manager.
@@ -22,24 +16,16 @@ public extension Realm {
  */
 public class DBManager {
     
-    /**
-     The singleton database manager instance.
-     */
+    /// The singleton database manager instance.
     public static let shared: DBManager = try! DBManager()
     
-    /**
-     The realm object.
-     */
+    /// The realm object.
     public fileprivate(set) var realm: Realm
     
-    /**
-     The url to the realm .sqlite database file.
-     */
+    /// The url to the realm .sqlite database file.
     public let databaseFile: URL
     
-    /**
-     A Boolean value that indicates whether a new database should be created each init (e.g. suitable for debugging).
-     */
+    /// A Boolean value that indicates whether a new database should be created each init (e.g. suitable for debugging).
     public static var createNewDatabaseAtInit: Bool = false
     
     /**
@@ -56,7 +42,8 @@ public class DBManager {
     }
     
     public static var appSupportDatabaseFile: URL? {
-        FileManager.default.applicationSupportDirectory(createIfNeeded: true)?.appendingPathComponent("Database").appendingPathExtension("sqlite")
+        URL.applicationSupportDirectory
+        return FileManager.default.applicationSupportDirectory(createIfNeeded: true)?.appendingPathComponent("Database").appendingPathExtension("sqlite")
     }
     
     /**

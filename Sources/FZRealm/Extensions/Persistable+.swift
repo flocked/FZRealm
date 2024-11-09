@@ -1,15 +1,20 @@
 //
 //  Persistable+.swift
-//  
+//
 //
 //  Created by Florian Zand on 13.05.23.
 //
 
-import AppKit
+import Foundation
 import RealmSwift
 import FZSwiftUtils
 import FZUIKit
-import AVKit
+#if os(macOS)
+import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
+
 
 
 // MARK: URL
@@ -25,49 +30,16 @@ extension URL: CustomPersistable {
     }
 }
 
-// MARK: CGRect
-extension CGRect: CustomPersistable {
-    public typealias PersistedType = PersitableArray<Double>
-    public init(persistedValue: PersitableArray<Double>) {
-        self = persistedValue.cgrect()
-    }
-    
-    public var persistableValue: PersitableArray<Double> {
-        return PersitableArray(self)
-    }
-}
-
-extension PersitableArray {
-    public convenience init(_ rect: CGRect) where Element == Double {
-        self.init()
-        self.array = [rect.x, rect.x, rect.width, rect.height]
-     }
-    
-    func cgrect() -> CGRect  where Element == Double {
-        CGRect(x: self[0], y: self[1], width: self[2], height: self[3])
-    }
-}
-
 // MARK: CGPoint
 extension CGPoint: CustomPersistable {
     public typealias PersistedType = PersitableArray<Double>
+    
     public init(persistedValue: PersitableArray<Double>) {
-        self = persistedValue.cgpoint()
+        self = CGPoint(x: persistedValue[0], y: persistedValue[1])
     }
     
     public var persistableValue: PersitableArray<Double> {
-        return PersitableArray(self)
-    }
-}
-
-extension PersitableArray {
-    public convenience init(_ point: CGPoint) where Element == Double {
-        self.init()
-        self.array = [point.x, point.x]
-     }
-    
-    func cgpoint() -> CGPoint where Element == Double {
-        CGPoint(x: self[0], y: self[1])
+        PersitableArray([x, y])
     }
 }
 
@@ -75,22 +47,23 @@ extension PersitableArray {
 extension CGSize: CustomPersistable {
     public typealias PersistedType = PersitableArray<Double>
     public init(persistedValue: PersitableArray<Double>) {
-        self = persistedValue.cgsize()
+        self = CGSize(width: persistedValue[0], height: persistedValue[1])
     }
     
     public var persistableValue: PersitableArray<Double> {
-        PersitableArray(self)
+        PersitableArray([width, height])
     }
 }
 
-extension PersitableArray {
-    public convenience init(_ size: CGSize) where Element == Double {
-       self.init()
-       self.array = [size.width, size.height]
+// MARK: CGRect
+extension CGRect: CustomPersistable {
+    public typealias PersistedType = PersitableArray<Double>
+    public init(persistedValue: PersitableArray<Double>) {
+        self = CGRect(x: persistedValue[0], y: persistedValue[1], width: persistedValue[2], height: persistedValue[3])
     }
     
-    func cgsize() -> CGSize where Element == Double {
-        CGSize(width: self[0], height: self[1])
+    public var persistableValue: PersitableArray<Double> {
+        return PersitableArray([x, y, width, height])
     }
 }
 
@@ -107,118 +80,50 @@ extension TimeDuration: CustomPersistable {
     }
 }
 
-// MARK: CMTime
-@available(macOS 13.0, iOS 16.0, tvOS 16.0, watchOS 9.0, *)
-extension CMTime: CustomPersistable {
-    public typealias PersistedType = PersitableArray<Double>
-    public init(persistedValue: PersitableArray<Double>) {
-        self = persistedValue.cmtime()
-    }
-    
-    public var persistableValue: PersitableArray<Double> {
-        PersitableArray(self)
-    }
-}
-
-@available(macOS 13.0, iOS 16.0, tvOS 16.0, watchOS 9.0, *)
-extension PersitableArray {
-    public convenience init(_ time: CMTime) where Element == Double {
-        self.init()
-        self.array = [Double(time.value), Double(time.timescale), Double(time.flags.rawValue), Double(time.epoch)]
-     }
-    
-    func cmtime() -> CMTime where Element == Double {
-        CMTime(value: Int64(self[0]), timescale: Int32(self[1]), flags: CMTimeFlags(rawValue: UInt32(self[2])),  epoch: Int64(self[3]))
-    }
-}
-
 // MARK: DataSize
 extension DataSize: CustomPersistable {
-    public typealias PersistedType = Int
+    public typealias PersistedType = PersitableArray<Int>
 
-    public init(persistedValue: Int) {
-        self = .init(persistedValue)
+    public init(persistedValue: PersitableArray<Int>) {
+        self = .init(persistedValue[0], countStyle: .init(rawValue: persistedValue[1])!)
     }
     
-    public var persistableValue: Int {
-        return self.bytes
+    public var persistableValue: PersitableArray<Int> {
+        PersitableArray([self.bytes, countStyle.rawValue])
     }
-    /*
-    public typealias PersistedType = PersitableArray<Double>
+}
 
-    public init(persistedValue: PersitableArray<Double>) {
-        self = persistedValue.datasize()
-    }
+// MARK: CGColor
+extension CGColor: CustomPersistable {
+    public typealias PersistedType = PersitableArray<Double>
     
     public var persistableValue: PersitableArray<Double> {
-        return PersitableArray(self)
-    }
-     */
-}
-
-/*
-extension PersitableArray {
-    public convenience init(_ size: DataSize) where Element == Double {
-        self.init()
-        self.array = [Double(size.bytes), Double(size.countStyle.rawValue)]
-     }
-    
-    func datasize() -> DataSize where Element == Double {
-        DataSize(Int(self[0]), countStyle: .init(rawValue: Int(self[1]))!)
-    }
-}
- */
-
-extension CustomPersistable where Self == NSUIColor {
-    public init(persistedValue: PersitableArray<Double>) {
-        self.init(red: persistedValue[0], green: persistedValue[1], blue: persistedValue[2], alpha: persistedValue[3])
+        guard let components = rgbaComponents() else { return [0, 0, 0, 0] }
+        return [components.red, components.green, components.blue, components.alpha]
     }
 }
 
-extension NSUIColor: CustomPersistable {
-    public typealias PersistedType = PersitableArray<Double>
-
-    
-    public var persistableValue: PersitableArray<Double> {
-        return PersitableArray(self)
-    }
-}
-
-// MARK: NSColor/UIColor
-extension PersitableArray {
-    public convenience init(_ color: NSUIColor) where Element == Double {
-        self.init()
-        let components = color.rgbaComponents()
-        self.array = [Double(components.red), Double(components.green), Double(components.blue), Double(components.alpha)]
-     }
-}
-
-/*
 extension CustomPersistable where Self == CGColor {
     public init(persistedValue: PersitableArray<Double>) {
         self.init(red: persistedValue[0], green: persistedValue[1], blue: persistedValue[2], alpha: persistedValue[3])
     }
 }
 
-
-extension CGColor: CustomPersistable {
+#if os(macOS) || canImport(UIKit)
+// MARK: NSColor/UIColor
+extension NSUIColor: CustomPersistable {
     public typealias PersistedType = PersitableArray<Double>
 
     
     public var persistableValue: PersitableArray<Double> {
-        return PersitableArray(self)
+        let components = rgbaComponents()
+        return [components.red, components.green, components.blue, components.alpha]
     }
 }
 
-// MARK: NSColor/UIColor
-extension PersitableArray {
-    public convenience init(_ color: CGColor) where Element == Double {
-        self.init()
-        if let components = color.rgbaComponents() {
-            self.array = [Double(components.red), Double(components.green), Double(components.blue), Double(components.alpha)]
-        } else {
-            self.array = [0, 0, 0, 0]
-        }
-     }
+extension CustomPersistable where Self == NSUIColor {
+    public init(persistedValue: PersitableArray<Double>) {
+        self.init(red: persistedValue[0], green: persistedValue[1], blue: persistedValue[2], alpha: persistedValue[3])
+    }
 }
-*/
+#endif

@@ -16,7 +16,7 @@ public protocol RealmObject: Object {
     /**
      The realm objects to be used for processing the RealmObject (like fetching all objects, saving, editing or deleting an object)
      
-     Provides DBManagers.shared.realm as default.
+     Provides ``DBManager/shared/realm`` as default.
      */
     static var realm: Realm { get }
 }
