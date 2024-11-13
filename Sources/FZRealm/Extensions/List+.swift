@@ -23,6 +23,8 @@ extension List: ExpressibleByArrayLiteral {
         self.init()
         self.append(objectsIn: elements)
     }
-    
-    public typealias ArrayLiteralElement = List.Element
+        
+    public static func += <S>(lhs: inout List, rhs: S) where S: Sequence<Element> {
+        lhs.append(objectsIn: rhs)
+    }
 }

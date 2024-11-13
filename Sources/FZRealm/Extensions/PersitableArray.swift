@@ -9,7 +9,6 @@ import Foundation
 import RealmSwift
 import FZSwiftUtils
 
-
 /**
  Array of `@Persisted` objects that can be used for conforming types to `CustomPersistable`.
  

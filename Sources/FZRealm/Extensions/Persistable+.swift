@@ -15,8 +15,6 @@ import AppKit
 import UIKit
 #endif
 
-
-
 // MARK: URL
 extension URL: CustomPersistable {
     public typealias PersistedType = String
@@ -93,27 +91,10 @@ extension DataSize: CustomPersistable {
     }
 }
 
-// MARK: CGColor
-extension CGColor: CustomPersistable {
-    public typealias PersistedType = PersitableArray<Double>
-    
-    public var persistableValue: PersitableArray<Double> {
-        guard let components = rgbaComponents() else { return [0, 0, 0, 0] }
-        return [components.red, components.green, components.blue, components.alpha]
-    }
-}
-
-extension CustomPersistable where Self == CGColor {
-    public init(persistedValue: PersitableArray<Double>) {
-        self.init(red: persistedValue[0], green: persistedValue[1], blue: persistedValue[2], alpha: persistedValue[3])
-    }
-}
-
 #if os(macOS) || canImport(UIKit)
 // MARK: NSColor/UIColor
 extension NSUIColor: CustomPersistable {
     public typealias PersistedType = PersitableArray<Double>
-
     
     public var persistableValue: PersitableArray<Double> {
         let components = rgbaComponents()

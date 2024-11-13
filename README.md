@@ -1,6 +1,6 @@
 # FZRealm
 
-A collection of Extensions to RealmSwift.
+A collection of Extensions to Realm.
 
 It provides CustomPersistable conformance to many types (like URL, CGRect, CGPoint, CGSize and CMTime) so that they can be be used Realm Object properties.
 
